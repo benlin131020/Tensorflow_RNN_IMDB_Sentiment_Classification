@@ -8,6 +8,7 @@ from tensorflow.python.keras.preprocessing import sequence
 from tensorflow.python.keras.preprocessing.text import Tokenizer
 
 NUM_CLASSES = 2
+SEQ_MAX_LEN = 100
 
 class IMDBData():
     def __init__(self):
@@ -44,10 +45,10 @@ class IMDBData():
         #文章內的文字，轉換為數字後，每一篇的文章地所產生的數字長度都不同
         #因為後需要進行類神經網路的訓練，所以每一篇文章所產生的數字長度必須相同
         #以下列程式碼為例maxlen=100，所以每一篇文章轉換為數字都必須為100
-        max_len_train = max(map(len, x_train_seq))
-        max_len_test = max(map(len, x_test_seq))
+        #max_len_train = max(map(len, x_train_seq))
+        #max_len_test = max(map(len, x_test_seq))
         #self.seq_max_len = max(max_len_train, max_len_test)
-        self.seq_max_len = 100
+        self.seq_max_len = SEQ_MAX_LEN
         x_train_pad = sequence.pad_sequences(x_train_seq, maxlen=self.seq_max_len)
         x_test_pad = sequence.pad_sequences(x_test_seq, maxlen=self.seq_max_len)
         self.x_train = np.reshape(x_train_pad, [-1, self.seq_max_len, 1])
